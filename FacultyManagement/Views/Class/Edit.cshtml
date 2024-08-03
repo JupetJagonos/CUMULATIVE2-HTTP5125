@@ -1,0 +1,65 @@
+﻿@model SchoolManagementSystem.Models.Class
+
+<h2>Edit</h2>
+<form id="editForm" method="post" asp-action="Edit">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="ClassId" />
+    <div class="form-group">
+        <label asp-for="ClassName" class="control-label">Name</label>
+        <input asp-for="ClassName" class="form-control" />
+        <span asp-validation-for="ClassName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ClassCode" class="control-label">Code</label>
+        <input asp-for="ClassCode" class="form-control" />
+        <span asp-validation-for="ClassCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDate" class="control-label">Start Date</label>
+        <input asp-for="StartDate" type="date" class="form-control" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FinishDate" class="control-label">Finish Date</label>
+        <input asp-for="FinishDate" type="date" class="form-control" />
+        <span asp-validation-for="FinishDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeacherId" class="control-label">Teacher ID</label>
+        <input asp-for="TeacherId" class="form-control" />
+        <span asp-validation-for="TeacherId" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#editForm').submit(function (event) {
+                event.preventDefault();
+                var form = $(this);
+                var formData = form.serialize();
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            window.location.href = '/Class/Index';
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while updating the class.');
+                    }
+                });
+            });
+        });
+    </script>
+}

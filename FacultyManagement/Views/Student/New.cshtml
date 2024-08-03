@@ -1,0 +1,69 @@
+﻿@model SchoolManagementSystem.Models.Student
+
+<h2>Create</h2>
+<form id="newForm" action="/Student/New" method="post" novalidate>
+    <!-- Ensure the anti-forgery token is included in the form -->
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="StudentFName" class="control-label">First Name</label>
+        <input asp-for="StudentFName" class="form-control" required />
+        <span asp-validation-for="StudentFName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StudentLName" class="control-label">Last Name</label>
+        <input asp-for="StudentLName" class="form-control" required />
+        <span asp-validation-for="StudentLName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StudentNumber" class="control-label">Student Number</label>
+        <input asp-for="StudentNumber" class="form-control" required />
+        <span asp-validation-for="StudentNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EnrolDate" class="control-label">Enrol Date</label>
+        <input asp-for="EnrolDate" type="date" class="form-control" required />
+        <span asp-validation-for="EnrolDate" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        // Get the anti-forgery token from the form
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $("#newForm").validate({
+            // Define any additional validation rules or messages here
+        });
+
+        $("#newForm").on("submit", function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            if ($(this).valid()) { // Check if the form is valid
+                $.ajax({
+                    url: $(this).attr('action'), // URL to the Create action method
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize the form data
+                    headers: {
+                        'RequestVerificationToken': token // Include anti-forgery token in the request header
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            window.location.href = '/Student/Index';
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors (e.g., show error message)
+                        alert("An error occurred: " + xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+</script>

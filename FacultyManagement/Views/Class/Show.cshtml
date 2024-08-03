@@ -1,0 +1,21 @@
+﻿@model SchoolManagementSystem.Models.Class
+
+<h2>@Model.ClassName</h2>
+<p>Code: @Model.ClassCode</p>
+<p>Start Date: @Model.StartDate</p>
+<p>Finish Date: @Model.FinishDate</p>
+<p> Teacher ID:
+    @if (Model.TeacherId == null)
+    {
+        <span class="text-danger">Non-Existent</span>
+    }
+    else
+    {
+        @Model.TeacherId
+    }
+</p>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <a asp-action="Edit" asp-route-id="@Model.ClassId" class="btn btn-primary">Edit</a>
+</p>

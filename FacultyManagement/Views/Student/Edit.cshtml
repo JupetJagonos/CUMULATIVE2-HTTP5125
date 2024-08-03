@@ -1,0 +1,68 @@
+﻿@model SchoolManagementSystem.Models.Student
+
+<h2>Edit</h2>
+<form id="editForm" method="post" asp-action="Edit">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="StudentId" />
+    <div class="form-group">
+        <label asp-for="StudentFName" class="control-label">First Name</label>
+        <input asp-for="StudentFName" class="form-control" />
+        <span asp-validation-for="StudentFName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StudentLName" class="control-label">Last Name</label>
+        <input asp-for="StudentLName" class="form-control" />
+        <span asp-validation-for="StudentLName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StudentNumber" class="control-label">Student Number</label>
+        <input asp-for="StudentNumber" class="form-control" />
+        <span asp-validation-for="StudentNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EnrolDate" class="control-label">Enrol Date</label>
+        <input asp-for="EnrolDate" class="form-control" />
+        <span asp-validation-for="EnrolDate" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#editForm').submit(function (event) {
+                event.preventDefault();
+                var form = $(this);
+                var formData = form.serialize();
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            window.location.href = '/Student/Index';
+                        } else {
+                            alert('Error updating student');
+                            if (response.errors) {
+                                // Clear previous errors
+                                $('.text-danger').text('');
+                                // Display validation errors
+                                $.each(response.errors, function (index, error) {
+                                    $('span[data-valmsg-for="' + index + '"]').text(error);
+                                });
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while updating the student.');
+                    }
+                });
+            });
+        });
+    </script>
+}

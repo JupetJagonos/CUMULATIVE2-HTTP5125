@@ -1,0 +1,9 @@
+﻿@model SchoolManagementSystem.Models.Student
+
+<h2>@Model.StudentLName, @Model.StudentFName</h2>
+<p>Student Number: @Model.StudentNumber</p>
+<p>Enrol Date: @Model.EnrolDate.ToShortDateString()</p>
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <a asp-action="Edit" asp-route-id="@Model.StudentId" class="btn btn-primary">Edit</a>
+</p>

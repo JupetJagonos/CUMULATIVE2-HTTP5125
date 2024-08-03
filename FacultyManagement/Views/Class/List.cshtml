@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.Class>
+
+<h2>Classes</h2>
+<p>
+    <a asp-action="New" class="btn btn-primary">New</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped d-none d-md-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var classData in Model)
+            {
+                <tr>
+                    <td>@classData.ClassId</td>
+                    <td>@classData.ClassName</td>
+                    <td>
+                        <a asp-action="Show" asp-route-id="@classData.ClassId" class="btn btn-info btn-sm">Show</a>
+                        <a asp-action="Edit" asp-route-id="@classData.ClassId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@classData.ClassId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-md-none">
+        @foreach (var classData in Model)
+        {
+            <div class="border-bottom mb-3">
+                <p><strong>ID:</strong> @classData.ClassId</p>
+                <p><strong>Name:</strong> @classData.ClassName</p>
+                <p>
+                    <a asp-action="Show" asp-route-id="@classData.ClassId" class="btn btn-info btn-sm">Show</a>
+                    <a asp-action="Edit" asp-route-id="@classData.ClassId" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@classData.ClassId" class="btn btn-danger btn-sm">Delete</a>
+                </p>
+            </div>
+        }
+    </div>
+</div>

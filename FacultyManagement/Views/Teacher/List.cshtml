@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.Teacher>
+
+<h2>Teachers</h2>
+<p>
+    <a asp-action="New" class="btn btn-primary">New</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped d-none d-md-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var teacher in Model)
+            {
+                <tr>
+                    <td>@teacher.TeacherId</td>
+                    <td>@teacher.TeacherFName</td>
+                    <td>@teacher.TeacherLName</td>
+                    <td>
+                        <a asp-action="Show" asp-route-id="@teacher.TeacherId" class="btn btn-info btn-sm">Show</a>
+                        <a asp-action="Edit" asp-route-id="@teacher.TeacherId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@teacher.TeacherId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-md-none">
+        @foreach (var teacher in Model)
+        {
+            <div class="border-bottom mb-3">
+                <p><strong>ID:</strong> @teacher.TeacherId</p>
+                <p><strong>First Name:</strong> @teacher.TeacherFName</p>
+                <p><strong>Last Name:</strong> @teacher.TeacherLName</p>
+                <p>
+                    <a asp-action="Show" asp-route-id="@teacher.TeacherId" class="btn btn-info btn-sm">Show</a>
+                    <a asp-action="Edit" asp-route-id="@teacher.TeacherId" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@teacher.TeacherId" class="btn btn-danger btn-sm">Delete</a>
+                </p>
+            </div>
+        }
+    </div>
+</div>
